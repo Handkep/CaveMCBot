@@ -1,11 +1,8 @@
-from dis import disco
 import os
-from pyexpat.errors import messages
 from discord.ext import commands
 import discord
 from numpy import array
 from discord.ui import Button, View
-# from dotenv import loa
 import secrets
 import random
 import logging
