@@ -1,11 +1,16 @@
+from dis import disco
 import os
 from pyexpat.errors import messages
 from discord.ext import commands
 import discord
+from numpy import array
+from discord.ui import Button, View
 # from dotenv import loa
 import secrets
 import random
+import logging
 
+logging.basicConfig(level=logging.INFO)
 
 
 intents = discord.Intents.all()
@@ -14,23 +19,102 @@ bot = commands.Bot(command_prefix=".", intents=intents)
 
 roleIdForNotifying = 953940038230634566
 
-
-
+todos = [["option1","✅"],["option2","🟥"],["optssion3","✅"],["option4","🟥"]]
+todos
+def buildTodoString(todo: array):
+    buf = ""
+    for i in enumerate(todo):
+        print(i)
+        buf += "`" + str(i[0]+1) + "." + i[1][1] + " " + i[1][0] + "` \n"
+        
+    print(buf)
+    return buf
+def removeTodoOption(todo: list, option):
+    print(option)
+    for i in enumerate(todo):
+        for j in option:
+            if j == i[1][0]:
+                print("del "+str(i))
+                del todo[i[0]]
+def addTodoOption(todo:list,option:str):
+    buf = []
+    buf.append(option)
+    buf.append("🟥")
+    todo.append(buf)
 client = discord.Client()
 @bot.event
 async def on_ready():
     print(f'{bot.user} has connected to {bot.guilds} !')
     await bot.change_presence(status=discord.Status.online, activity=discord.Game(name="CaveMC.NET"))
-    embed=discord.Embed(title="ONLINE", description="Moin, bin nun Online :) Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut consequat semper viverra nam libero. Lectus magna fringilla urna porttitor rhoncus dolor purus. Sodales ut etiam sit amet nisl. Venenatis a condimentum vitae sapien. Orci phasellus egestas tellus rutrum tellus pellentesque eu tincidunt tortor. Laoreet sit amet cursus sit amet dictum sit amet. Metus vulputate eu scelerisque felis imperdiet proin fermentum. Ac turpis egestas maecenas pharetra convallis. Dui sapien eget mi proin. Convallis aenean et tortor at risus. Nisi est sit amet facilisis magna etiam. Imperdiet proin fermentum leo vel. Scelerisque varius morbi enim nunc faucibus a. Est placerat in egestas erat imperdiet sed euismod. Sapien et ligula ullamcorper malesuada proin libero nunc consequat interdum. Tincidunt dui ut ornare lectus sit. Augue interdum velit euismod in pellentesque massa placerat duis ultricies. Eleifend donec pretium vulputate sapien nec sagittis aliquam malesuada bibendum.", color=0x208edd)
-    embed=discord.Embed(title="ONLINE", description="Moin, bin nun Online :)", color=0x208edd)
-    embed=discord.Embed(title="ONLINE", description="🟩 Maps\n🟥 Maps\n✅ Maps", color=0x208edd)
+    embed=discord.Embed(title="ONLINE", description=buildTodoString(todos), color=0x208edd)
     embed.set_footer(text="der CaveMC Bot")
+    buttonCheckOption = discord.ui.Button(label="Aufgabe abhaken✔️",style=discord.ButtonStyle.green)
+    buttonAddOption = discord.ui.Button(label="Aufgabe hinzufügen")
+    buttonDeleteOption = discord.ui.Button(label="Aufgabe löschen",style=discord.ButtonStyle.red)
+    buttonBack = discord.ui.Button(label="Zurück")
+    
+
+    selectCheckOption= discord.ui.Select()
+    for i in todos:
+        selectCheckOption.add_option(label=i[0])
+
+    selectAddOption= discord.ui.Select()
+    for i in todos:
+        selectAddOption.add_option(label=i[0])
+
+    selectDeleteOption= discord.ui.Select()
+    for i in todos:
+        selectDeleteOption.add_option(label=i[0])
+
+    inputAddOption = discord.ui.InputText(label="Aufgabe:",style=discord.InputTextStyle.short)
+
+    checkView = discord.ui.View(selectCheckOption,buttonBack)
+    addModal = discord.ui.Modal(title="Aufgabe zur ToDo-Liste hinzufügen")
+    addModal.add_item(inputAddOption)
+    # addView = discord.ui.View(discord.ui.Modal(inputAddOption),buttonBack)
+    deleteView = discord.ui.View(selectDeleteOption,buttonBack)
+    defaultView = discord.ui.View(buttonCheckOption,buttonAddOption,buttonDeleteOption)
+
+    async def buttonCheckOption_callback(interaction):
+        await interaction.response.edit_message(embed=embed,view=checkView)
+        return
+    buttonCheckOption.callback = buttonCheckOption_callback
+
+    async def buttonAddOption_callback(interaction):
+        await interaction.response.send_modal(addModal)
+        return
+    buttonAddOption.callback = buttonAddOption_callback
+
+    async def buttonBack_callback(interaction):
+        await interaction.response.edit_message(embed=embed,view=defaultView)
+        return
+    buttonBack.callback = buttonBack_callback
+
+    async def selectDeleteOption_callback(interaction):
+        # await interaction.response.edit_message(embed=embed,view=defaultView)
+        print(interaction.data)
+        removeTodoOption(todos,interaction.data["values"])
+        embed=discord.Embed(title="ONLINE", description=buildTodoString(todos), color=0x208edd)
+        await interaction.response.edit_message(embed=embed,view=defaultView)
+
+        return
+    selectDeleteOption.callback = selectDeleteOption_callback
+
+    async def addModal_callback(interaction):
+        print(interaction.data["components"][0]["components"][0]["value"])
+        addTodoOption(todos, interaction.data["components"][0]["components"][0]["value"])
+        embed=discord.Embed(title="ONLINE", description=buildTodoString(todos), color=0x208edd)
+
+        await interaction.response.send_message(embeds=[embed],view=defaultView)
+        return
+    addModal.callback = addModal_callback
+
     for i in bot.guilds:
         for j in i.roles:   
             if j.id == roleIdForNotifying:
                 print(j.members)
                 for k in j.members:
-                    await k.send(embed=embed)
+                    await k.send(embed=embed,view=defaultView)
                     pass
 
 
@@ -46,7 +130,7 @@ async def on_message(message):
     print(message.author.mention)
     with open("embeded_messages/test.txt") as f:
         print(f)
-    await message.channel.send(embed=embed)
+    # await message.channel.send(embed=embed)
     # for i in message.author.roles:
     #     if i.id == roleIdForNotifying:
     #         print(i.members)
@@ -58,5 +142,4 @@ async def on_message(message):
 @bot.command()
 async def test(ctx):
     pass
-
 bot.run(secrets.discordToken)
