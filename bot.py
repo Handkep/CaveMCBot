@@ -38,42 +38,47 @@ def addTodoOption(todo:list,option:str):
     buf.append(option)
     buf.append("🟥")
     todo.append(buf)
+    return buf
+def checkTodoOption(todo:list,option:str):
+    for i in enumerate(todo):
+        for j in option:
+            if j == i[1][0]:
+                todo[i[0]][1] = "✅"
+
+
+def getTodoEmbed():
+    return discord.Embed(title="TODO", description=buildTodoString(todos), color=0x208edd)
 client = discord.Client()
 @bot.event
 async def on_ready():
     print(f'{bot.user} has connected to {bot.guilds} !')
     await bot.change_presence(status=discord.Status.online, activity=discord.Game(name="CaveMC.NET"))
-    embed=discord.Embed(title="ONLINE", description=buildTodoString(todos), color=0x208edd)
-    embed.set_footer(text="der CaveMC Bot")
+    # embed=discord.Embed(title="ONLINE", description=buildTodoString(todos), color=0x208edd)
+    # embed.set_footer(text="der CaveMC Bot")
     buttonCheckOption = discord.ui.Button(label="Aufgabe abhaken✔️",style=discord.ButtonStyle.green)
     buttonAddOption = discord.ui.Button(label="Aufgabe hinzufügen")
     buttonDeleteOption = discord.ui.Button(label="Aufgabe löschen",style=discord.ButtonStyle.red)
     buttonBack = discord.ui.Button(label="Zurück")
     
-
     selectCheckOption= discord.ui.Select()
+    selectAddOption= discord.ui.Select()
+    selectDeleteOption= discord.ui.Select()
+
     for i in todos:
         selectCheckOption.add_option(label=i[0])
-
-    selectAddOption= discord.ui.Select()
-    for i in todos:
         selectAddOption.add_option(label=i[0])
-
-    selectDeleteOption= discord.ui.Select()
-    for i in todos:
         selectDeleteOption.add_option(label=i[0])
 
     inputAddOption = discord.ui.InputText(label="Aufgabe:",style=discord.InputTextStyle.short)
 
-    checkView = discord.ui.View(selectCheckOption,buttonBack)
     addModal = discord.ui.Modal(title="Aufgabe zur ToDo-Liste hinzufügen")
     addModal.add_item(inputAddOption)
-    # addView = discord.ui.View(discord.ui.Modal(inputAddOption),buttonBack)
+    checkView = discord.ui.View(selectCheckOption,buttonBack)
     deleteView = discord.ui.View(selectDeleteOption,buttonBack)
     defaultView = discord.ui.View(buttonCheckOption,buttonAddOption,buttonDeleteOption)
 
     async def buttonCheckOption_callback(interaction):
-        await interaction.response.edit_message(embed=embed,view=checkView)
+        await interaction.response.edit_message(embed=getTodoEmbed(),view=checkView)
         return
     buttonCheckOption.callback = buttonCheckOption_callback
 
@@ -82,27 +87,51 @@ async def on_ready():
         return
     buttonAddOption.callback = buttonAddOption_callback
 
+    async def buttonDeleteOption_callback(interaction):
+        async for message in interaction.channel.history(limit=200):
+            if message.author == bot.user:
+                await message.delete()
+    buttonDeleteOption.callback = buttonDeleteOption_callback
+
     async def buttonBack_callback(interaction):
-        await interaction.response.edit_message(embed=embed,view=defaultView)
+        await interaction.response.edit_message(embed=getTodoEmbed(),view=defaultView)
         return
     buttonBack.callback = buttonBack_callback
 
+    async def selectCheckOption_callback(interaction):
+        # await interaction.response.edit_message(embed=getTodoEmbed(),view=defaultView)
+        print(interaction.data)
+        checkTodoOption(todos,interaction.data["values"])
+        await interaction.response.edit_message(embed=getTodoEmbed(),view=defaultView)
+
+        return
+    selectCheckOption.callback = selectCheckOption_callback
+
     async def selectDeleteOption_callback(interaction):
-        # await interaction.response.edit_message(embed=embed,view=defaultView)
+        # await interaction.response.edit_message(embed=getTodoEmbed(),view=defaultView)
         print(interaction.data)
         removeTodoOption(todos,interaction.data["values"])
-        embed=discord.Embed(title="ONLINE", description=buildTodoString(todos), color=0x208edd)
-        await interaction.response.edit_message(embed=embed,view=defaultView)
+
+
+        await interaction.response.edit_message(embed=getTodoEmbed(),view=defaultView)
 
         return
     selectDeleteOption.callback = selectDeleteOption_callback
 
+
+
+
+
     async def addModal_callback(interaction):
         print(interaction.data["components"][0]["components"][0]["value"])
-        addTodoOption(todos, interaction.data["components"][0]["components"][0]["value"])
-        embed=discord.Embed(title="ONLINE", description=buildTodoString(todos), color=0x208edd)
+        option =addTodoOption(todos, interaction.data["components"][0]["components"][0]["value"])
+        
+        selectCheckOption.add_option(label=option[0])
+        selectAddOption.add_option(label=option[0])
+        selectDeleteOption.add_option(label=option[0])
 
-        await interaction.response.send_message(embeds=[embed],view=defaultView)
+        await interaction.response.send_message(embeds=[getTodoEmbed()],view=defaultView)
+        await interaction.delete_original_message()
         return
     addModal.callback = addModal_callback
 
@@ -111,7 +140,7 @@ async def on_ready():
             if j.id == roleIdForNotifying:
                 print(j.members)
                 for k in j.members:
-                    await k.send(embed=embed,view=defaultView)
+                    await k.send(embed=getTodoEmbed(),view=defaultView)
                     pass
 
 
