@@ -16,6 +16,7 @@ bot = commands.Bot(command_prefix=".", intents=intents)
 
 roleIdForNotifying = 953940038230634566
 
+
 todos = [["option1","✅"],["option2","🟥"],["optssion3","✅"],["option4","🟥"]]
 todos
 def buildTodoString(todo: array):
