@@ -6,6 +6,8 @@ from discord.ui import Button, View
 import secrets
 import random
 import logging
+import yaml
+
 
 logging.basicConfig(level=logging.INFO)
 
@@ -18,7 +20,16 @@ roleIdForNotifying = 953940038230634566
 
 
 todos = [["option1","✅"],["option2","🟥"],["optssion3","✅"],["option4","🟥"]]
-todos
+print(todos)
+with open('todos.yaml',"r") as f:
+    todos = yaml.safe_load(f)
+print(todos)
+
+# with open('todos.yaml', 'w') as f:
+#     yaml.dump(todos, f)
+
+
+# todos
 def buildTodoString(todo: array):
     buf = ""
     for i in enumerate(todo):
@@ -34,11 +45,16 @@ def removeTodoOption(todo: list, option):
             if j == i[1][0]:
                 print("del "+str(i))
                 del todo[i[0]]
+    with open('todos.yaml', 'w') as f:
+        yaml.dump(todos, f)
 def addTodoOption(todo:list,option:str):
     buf = []
     buf.append(option)
     buf.append("🟥")
     todo.append(buf)
+    with open('todos.yaml', 'w') as f:
+        yaml.dump(todos, f)
+
     return buf
 def checkTodoOption(todo:list,option:str):
     for i in enumerate(todo):
@@ -48,6 +64,8 @@ def checkTodoOption(todo:list,option:str):
 
 
 def getTodoEmbed():
+    with open('todos.yaml',"r") as f:
+        todos = yaml.safe_load(f)
     return discord.Embed(title="TODO", description=buildTodoString(todos), color=0x208edd)
 client = discord.Client()
 @bot.event
@@ -131,8 +149,8 @@ async def on_ready():
         selectAddOption.add_option(label=option[0])
         selectDeleteOption.add_option(label=option[0])
 
+        # await interaction.delete_original_message()
         await interaction.response.send_message(embeds=[getTodoEmbed()],view=defaultView)
-        await interaction.delete_original_message()
         return
     addModal.callback = addModal_callback
 
