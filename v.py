@@ -103,6 +103,7 @@ async def finished_callback(sink, channel: discord.TextChannel, *args):
     await channel.send(f"Fertig! aufgenommene Benutzer: {', '.join(recorded_users)}.", files=files)
 
 
+
 @bot.command()
 async def stop(ctx):
     """
