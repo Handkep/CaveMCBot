@@ -61,6 +61,8 @@ def checkTodoOption(todo:list,option:str):
         for j in option:
             if j == i[1][0]:
                 todo[i[0]][1] = "✅"
+    with open('todos.yaml', 'w') as f:
+        yaml.dump(todos, f)
 
 
 def getTodoEmbed():
@@ -150,8 +152,13 @@ async def on_ready():
         selectDeleteOption.add_option(label=option[0])
 
         # await interaction.delete_original_message()
-        await interaction.response.send_message(embeds=[getTodoEmbed()],view=defaultView)
-        return
+        print(interaction.message)
+        await interaction.message.edit(embeds=[getTodoEmbed()],view=defaultView)
+        await interaction.response.send_message()
+        
+        # await z = interaction.original_message()
+        # await interaction.edit_original_message(embeds=[getTodoEmbed()],view=defaultView)
+        return 
     addModal.callback = addModal_callback
 
     for i in bot.guilds:
@@ -186,5 +193,5 @@ async def on_message(message):
 
 @bot.command()
 async def test(ctx):
-    pass
+    print("yayy")
 bot.run(secrets.discordToken)
