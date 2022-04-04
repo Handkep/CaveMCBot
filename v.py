@@ -3,20 +3,36 @@ import secrets
 
 import discord
 from discord.commands import ApplicationContext, Option
+import logging
+
+
+logging.basicConfig(level=logging.DEBUG)
+
+
 
 # bot = discord.Bot(debug_guilds=[...])
 bot = discord.Bot()
 bot.connections = {}
 
+@bot.event
+async def on_ready():
+    print(f'{bot.user} has connected to {bot.guilds} !')
+    await bot.change_presence(status=discord.Status.online, activity=discord.Game(name="CaveMC.NET"))
+
 @bot.command()
 async def moin(
     ctx: ApplicationContext,
-    etwas: Option(str,"etwas"),
+    user: Option(discord.User,"benutzer"),
 ):
     """
     tset!
     """
-    await ctx.respond(etwas)
+    print("moin was called!")
+    embed=discord.Embed(description=f" {ctx.author.mention} grüßt {user.mention} \n [für die Regeln klicken!](https://discordapp.com/channels/844208848121495572/926182897453510656/926238579938701322)", color=0x208edd)
+    embed.set_thumbnail(url=bot.user.avatar.url)
+    embed.set_author(name="CaveMC Team", icon_url=bot.user.avatar.url)
+    await ctx.respond(embed=embed)
+    # await ctx.respond(bot.user.avatar.url)
 
 
 @bot.command()
@@ -38,6 +54,14 @@ async def hallo(
 ):
     pass
 
+# @bot.command()
+# async def help(
+#     ctx: ApplicationContext
+# ):
+#     """
+#     Bitte helfen Sie mir, ich bin in Gefahr!
+#     """
+#     pass
 
 @bot.command()
 async def start(
@@ -59,11 +83,14 @@ async def start(
     """
     Nimmt den Channel auf, in dem du drinnen bist!
     """
-
     voice = ctx.author.voice
 
     if not voice:
-        return await ctx.respond("du bist gerade in keinem VoiceChannel!")
+
+        embed=discord.Embed(description=f"Du bist in keinem Voice-Channel!" , color=0x208edd)
+        # embed.set_thumbnail(url=bot.user.avatar.url)
+        embed.set_author(name="CaveMC Team", icon_url=bot.user.avatar.url)
+        return await ctx.respond(embed=embed)
 
     vc = await voice.channel.connect()
     bot.connections.update({ctx.guild.id: vc})
