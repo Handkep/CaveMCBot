@@ -1,0 +1,7 @@
+moin, das ist die erste 
+und die zweite zeile eines text-
+dokuments.
+**das sollte fett sein** 
+~~und das durchgestrichen~~
+die Frage ist, wann wird diese Zeile automatisch unterbrochen und auf der nächsten Zeile fortgesetzt? ich denke das hängt von der Bildschirmgröße ab :)
+[das ist ein link, der auch über die Text-Datei eingefügt wurde!](https://discordapp.com/channels/844208848121495572/926182897453510656/926238579938701322)

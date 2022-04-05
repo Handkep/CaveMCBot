@@ -3,6 +3,7 @@ import secrets
 
 import discord
 from discord.commands import ApplicationContext, Option
+# from discord.ext.commands import UserConverter
 import logging
 
 
@@ -37,31 +38,32 @@ async def moin(
 
 @bot.command()
 async def hallo(
-    ctx: ApplicationContext,
-    encoding: Option(
-        str,
-        choices=[
-            "mp3",
-            "wav",
-            "pcm",
-            "ogg",
-            "mka",
-            "mkv",
-            "mp4",
-            "m4a",
-        ],
-    ),
+    ctx: ApplicationContext
 ):
-    pass
+    with open('hallo.txt',"r",encoding="utf-8") as f:
+        txt = f.read()
+        print(txt)
 
-# @bot.command()
-# async def help(
-#     ctx: ApplicationContext
-# ):
-#     """
-#     Bitte helfen Sie mir, ich bin in Gefahr!
-#     """
-#     pass
+        embed=discord.Embed(description=txt, color=0x208edd)
+        # embed.set_thumbnail(url=bot.user.avatar.url)
+        embed.set_author(name="CaveMC Team", icon_url=bot.user.avatar.url)
+        embed.set_footer(text="Copyright CaveMC © 2021-2022")
+        await ctx.respond(embed=embed)
+    
+@bot.command()
+async def help(
+    ctx: ApplicationContext
+):
+    """
+    Bitte helfen Sie mir, ich bin in Gefahr!
+    """
+    with open('help.txt',"r",encoding="utf-8") as f:
+        txt = f.read()
+        embed=discord.Embed(description=txt, color=0x20dd9f)
+        embed.set_thumbnail(url="https://public.am.files.1drv.com/y4m1WE2nIfYlzvnmvxnywpi2IXB9YYEj5U3ErIGYcnX7y1HdfLibQxeOwcqg_RGwbrlOvZj0aOhUfCMgxAGNG1CI11vfg9A49mTa3T4V-Je0tC8ezcTYs8NDAWHzD9KKJE3rwMWC7ndajp8-B_nDGOEe5r4iWt7NetoyvIulQONJSQi1HJGanhAlUaSRuu7v3G3izb_qDGVs-3PBjlhiw_sFOg0Qa7xMXFCZ06LG3Lgdm8")
+        embed.set_author(name="CaveMC Team", icon_url=bot.user.avatar.url)
+        embed.set_footer(text="Copyright CaveMC © 2021-2022")
+        await ctx.respond("Du hast Hilfe angefordert, hier kommt sie :)",embed=embed)
 
 @bot.command()
 async def start(
@@ -126,7 +128,10 @@ async def start(
 async def finished_callback(sink, channel: discord.TextChannel, *args):
     recorded_users = [f"<@{user_id}>" for user_id, audio in sink.audio_data.items()]
     await sink.vc.disconnect()
-    files = [discord.File(audio.file, f"{user_id}.{sink.encoding}") for user_id, audio in sink.audio_data.items()]
+    files = []
+    for user_id, audio in sink.audio_data.items():
+        user = await bot.fetch_user(user_id)
+        files.append(discord.File(audio.file, f"{user}.{sink.encoding}"))
     await channel.send(f"Fertig! aufgenommene Benutzer: {', '.join(recorded_users)}.", files=files)
 
 
