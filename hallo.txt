@@ -5,3 +5,51 @@ dokuments.
 ~~und das durchgestrichen~~
 die Frage ist, wann wird diese Zeile automatisch unterbrochen und auf der nächsten Zeile fortgesetzt? ich denke das hängt von der Bildschirmgröße ab :)
 [das ist ein link, der auch über die Text-Datei eingefügt wurde!](https://discordapp.com/channels/844208848121495572/926182897453510656/926238579938701322)
+CaveMC Regelwerk
+**§1.1 Namensgebung**
+
+Nicknames dürfen keine beleidigenden oder anderen verbotenen oder geschützen Namen oder Namensteile enthalten.
+
+**§1.2 Avatar**
+
+Avatare dürfen keine pornographischen, rassistischen oder beleidigenden Inhalte beinhalten.
+
+**§2.1 Umgangston**
+
+Der Umgang mit anderen Discord Benutzern sollte stets freundlich sein. Verbale Angriffe gegen andere User sind strengstens untersagt.
+
+**§2.2 Gespräche aufnehmen**
+
+Das Mitschneiden von Gesprächen ist auf dem gesamten Server nur nach Absprache mit den anwesenden Benutzern des entsprechenden Channels erlaubt. Willigt ein User nicht der Aufnahme ein, ist die Aufnahme des Gesprächs verboten.
+
+**§2.3 Abwesenheit**
+
+Bei längerer Abwesenheit wird der Benutzer gebeten in den entsprechnden AFK-Channel zu gehen.
+
+**§3.1 Kicken/Bannen**
+
+Ein Kick oder Bann ist zu keinem Zeitpunkt unbegründet, sondern soll zum Nachdenken der eigenen Verhaltensweise anregen. Unangebrachte Kicks/Banns müssen den zuständigen Admins gemeldet werden.
+
+**§3.2 Rollen**
+
+Rollen werden nicht wahllos vergeben, sondern dienen immer einem bestimmten Grund. Bei Bedarf von Rollen kann sich an den zuständigen Admin gewandt werden.
+
+**§3.3 Weisungsrecht**
+
+Server Admins, Moderatoren oder anderweitig befugte Admins haben volles Weisungsrecht. Das Verweigern einer bestimmten Anweisung kann zu einem Kick oder Bann führen.
+
+**§4.1 Werbung**
+
+Jegliche Art von Werbung ist auf diesem Server untersagt. Ggf. kann sich an einen zuständigen Admin gewandt werden, um über eine Möglichkeit zur Werbung zu verhandeln.
+
+**§4.2 Datenschutz**
+
+Private Daten wie Telefonnummern, Adressen, Passwörter und ähnlichem dürfen nicht öffentlich ausgetauscht werden.
+
+**§5.1 Eigene Musik/Töne**
+
+Das Einspielen von eigener Musik, oder das Übetragen von anderen nicht erwünschten Tönen ist untersagt.
+
+**§5.2 Bots (insb. Musik-Bots)**
+
+Es dürfen keine Bots mit dem Discord Server verbunden werden. Bots dürfen nur in ausgewiesenen Channels verbunden werden und auch nur dann, wenn kein weiterer Bot in dem Channel aktiv ist.

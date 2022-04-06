@@ -1,19 +1,24 @@
+from dis import disco
 import os
 import secrets
 
 import discord
-from discord.commands import ApplicationContext, Option
+from discord.commands import ApplicationContext, Option, permissions
 # from discord.ext.commands import UserConverter
 import logging
 
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 
 
 
 # bot = discord.Bot(debug_guilds=[...])
 bot = discord.Bot()
 bot.connections = {}
+
+
+async def no_permission(ctx:discord.ApplicationContext):
+    await ctx.respond("du darfst das nicht")
 
 @bot.event
 async def on_ready():
@@ -28,7 +33,8 @@ async def moin(
     """
     tset!
     """
-    print("moin was called!")
+    await no_permission(ctx)
+    return
     embed=discord.Embed(description=f" {ctx.author.mention} grüßt {user.mention} \n [für die Regeln klicken!](https://discordapp.com/channels/844208848121495572/926182897453510656/926238579938701322)", color=0x208edd)
     embed.set_thumbnail(url=bot.user.avatar.url)
     embed.set_author(name="CaveMC Team", icon_url=bot.user.avatar.url)
@@ -37,6 +43,7 @@ async def moin(
 
 
 @bot.command()
+@permissions.has_role(953940038230634566)
 async def hallo(
     ctx: ApplicationContext
 ):
