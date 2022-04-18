@@ -1,7 +1,7 @@
 import os
 from discord.ext import commands
 import discord
-from numpy import array
+# from numpy import array
 from discord.ui import Button, View
 import secrets
 import random
