@@ -41,6 +41,16 @@ async def moin(
     await ctx.respond(embed=embed)
     # await ctx.respond(bot.user.avatar.url)
 
+@bot.command()
+async def ankündigung(
+    ctx: ApplicationContext,
+):
+    """
+    Sendet eine Ankündigung in den Ankündigungskanal
+    """
+    await ctx.respond("Ankündigung wurde gesendet!")
+    return
+
 
 @bot.command()
 @permissions.has_role(953940038230634566)
