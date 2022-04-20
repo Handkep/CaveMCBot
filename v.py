@@ -1,18 +1,31 @@
 from dis import disco
 import os
 import secrets
-
+import yaml
 import discord
 from discord.commands import ApplicationContext, Option, permissions
 # from discord.ext.commands import UserConverter
 import logging
+import sys
 
-
-logging.basicConfig(level=logging.INFO)
-
+logger = logging.getLogger('application')
+# logging.basicConfig(level=logging.INFO)
+logging.basicConfig(
+    level=logging.INFO,
+    # format="%(asctime)s [%(levelname)s] %(message)s",
+    format="%(asctime)s:%(levelname)s:%(name)s: %(message)s",
+    handlers=[
+        logging.FileHandler("debug.log"),
+        logging.StreamHandler(sys.stdout)
+    ]
+)
 
 
 # bot = discord.Bot(debug_guilds=[...])
+
+with open("config.yaml","r") as f:
+    config = yaml.safe_load(f)
+
 bot = discord.Bot()
 bot.connections = {}
 
@@ -22,7 +35,7 @@ async def no_permission(ctx:discord.ApplicationContext):
 
 @bot.event
 async def on_ready():
-    print(f'{bot.user} has connected to {bot.guilds} !')
+    logger.info(f'{bot.user} has connected to {bot.guilds}')
     await bot.change_presence(status=discord.Status.online, activity=discord.Game(name="CaveMC.NET"))
 
 @bot.command()
@@ -33,6 +46,7 @@ async def moin(
     """
     tset!
     """
+    logger.info(f'{ctx.author.display_name} has used /moin')
     await no_permission(ctx)
     return
     embed=discord.Embed(description=f" {ctx.author.mention} grüßt {user.mention} \n [für die Regeln klicken!](https://discordapp.com/channels/844208848121495572/926182897453510656/926238579938701322)", color=0x208edd)
@@ -44,16 +58,32 @@ async def moin(
 @bot.command()
 async def ankündigung(
     ctx: ApplicationContext,
+    text: Option(str,"Inhalt der Ankündigung"),
+    kanal: Option(str,choices=[i for i in config["announcements"]]),
+    ping: Option(discord.User,"Ping")
 ):
     """
     Sendet eine Ankündigung in den Ankündigungskanal
     """
-    await ctx.respond("Ankündigung wurde gesendet!")
+    logger.info(f'{ctx.author.display_name} has used /ankündigung: text={text}, Channel={kanal}')
+    kanalid = config["announcements"][kanal]
+    await ctx.respond(f"Ankündigung wurde in {ctx.bot.get_channel(int(kanalid)).mention} gesendet!")
+    # print(ctx.guild.)
+    # msg = "****\n" + text + "\n" + ctx.author.mention # + "\n @everyone"
+    embed=discord.Embed(description=text, color=0x208edd)
+    embed.title="Ankündigung:"
+    # embed.description = ctx.author.mention
+    embed.set_thumbnail(url=bot.user.avatar.url)
+    embed.set_author(name="CaveMC Team", icon_url=bot.user.avatar.url)
+    # embed.set_footer(text=f"{ctx.author.mention} Copyright CaveMC © 2021-2022 <@239335585183956992> ")
+    embed.set_footer(text=f"Ankündigu von {ctx.author.display_name}\nCopyright CaveMC © 2021-2022",icon_url=ctx.author.avatar.url)
+    # await ctx.bot.get_channel(int(config["announcements"][kanal])).send("Ankündigung @everyone",embed=embed)
+    await ctx.bot.get_channel(int(config["announcements"][kanal])).send(f"Ankündigung {ping.mention}",embed=embed)
     return
 
 
-@bot.command()
-@permissions.has_role(953940038230634566)
+@bot.command(default_permission=False)
+@permissions.has_role(953940038230634566)#, guild_id=844208848121495572) 
 async def hallo(
     ctx: ApplicationContext
 ):
