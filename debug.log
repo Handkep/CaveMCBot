@@ -47,3 +47,44 @@
 2022-04-20 12:05:00,322:INFO:discord.gateway: Shard ID None has connected to Gateway: ["gateway-prd-main-09kz",{"micros":170612,"calls":["discord-sessions-blue-prd-2-124",{"micros":169407,"calls":["start_session",{"micros":150981,"calls":["discord-api-f6478d7c8-75zct",{"micros":136422,"calls":["get_user",{"micros":30681},"add_authorized_ip",{"micros":7999},"get_guilds",{"micros":12021},"coros_wait",{"micros":3}]}]},"guilds_connect",{"micros":2,"calls":[]},"presence_connect",{"micros":17653,"calls":[]}]}]}] (Session ID: 3691ea7fe37c90c6ee56752343b0f895).
 2022-04-20 12:05:02,349:INFO:application: CaveMC#5504 has connected to [<Guild id=844208848121495572 name='CaveMC.net' shard_id=0 chunked=False member_count=97>]
 2022-04-20 12:13:51,307:INFO:application: Paulus has used /moin
+2022-04-20 12:16:11,180:INFO:discord.client: logging in using static token
+2022-04-20 12:16:11,676:INFO:discord.gateway: Shard ID None has sent the IDENTIFY payload.
+2022-04-20 12:16:12,067:INFO:discord.gateway: Shard ID None has connected to Gateway: ["gateway-prd-main-4j42",{"micros":270965,"calls":["discord-sessions-blue-prd-2-50",{"micros":269595,"calls":["start_session",{"micros":224950,"calls":["discord-api-f6478d7c8-x7lmh",{"micros":219568,"calls":["get_user",{"micros":48481},"add_authorized_ip",{"micros":10055},"get_guilds",{"micros":28025},"coros_wait",{"micros":3}]}]},"guilds_connect",{"micros":1,"calls":[]},"presence_connect",{"micros":28586,"calls":[]}]}]}] (Session ID: 86f34109b0e8414ea0e29fc62d1b3963).
+2022-04-20 12:16:14,092:INFO:application: CaveMC#5504 has connected to [<Guild id=844208848121495572 name='CaveMC.net' shard_id=0 chunked=False member_count=97>]
+2022-04-20 13:26:07,574:INFO:application: CMC | Jimmytastik has used /ankündigung: text=k, Channel=global
+2022-04-20 14:59:13,184:INFO:discord.client: logging in using static token
+2022-04-20 14:59:13,629:INFO:discord.gateway: Shard ID None has sent the IDENTIFY payload.
+2022-04-20 14:59:13,927:INFO:discord.gateway: Shard ID None has connected to Gateway: ["gateway-prd-main-5nk4",{"micros":177173,"calls":["discord-sessions-blue-prd-2-41",{"micros":175924,"calls":["start_session",{"micros":171893,"calls":["discord-api-f6478d7c8-gkqjg",{"micros":160359,"calls":["get_user",{"micros":37063},"add_authorized_ip",{"micros":7624},"get_guilds",{"micros":12927},"coros_wait",{"micros":3}]}]},"guilds_connect",{"micros":16,"calls":[]},"presence_connect",{"micros":0,"calls":[]}]}]}] (Session ID: 42f22512267d02ac505b69bcb4fad5ae).
+2022-04-20 14:59:15,951:INFO:application: CaveMC#5504 has connected to [<Guild id=844208848121495572 name='CaveMC.net' shard_id=0 chunked=False member_count=97>]
+2022-04-20 22:11:37,417:INFO:discord.client: logging in using static token
+2022-04-20 22:11:38,091:INFO:discord.gateway: Shard ID None has sent the IDENTIFY payload.
+2022-04-20 22:11:38,341:INFO:discord.gateway: Shard ID None has connected to Gateway: ["gateway-prd-main-p0xk",{"micros":131642,"calls":["discord-sessions-blue-prd-2-112",{"micros":130237,"calls":["start_session",{"micros":88242,"calls":["discord-api-748d746b94-6gnzg",{"micros":77637,"calls":["get_user",{"micros":11597},"add_authorized_ip",{"micros":4278},"get_guilds",{"micros":10799},"coros_wait",{"micros":4}]}]},"guilds_connect",{"micros":1,"calls":[]},"presence_connect",{"micros":23984,"calls":[]}]}]}] (Session ID: dcf54de8c53d84ce86b84eeb5b5aa8a3).
+2022-04-20 22:11:40,343:INFO:application: CaveMC#5504 has connected to [<Guild id=844208848121495572 name='CaveMC.net' shard_id=0 chunked=False member_count=98>]
+2022-04-20 23:14:53,997:INFO:discord.gateway: Websocket closed with 1001, attempting a reconnect.
+2022-04-20 23:14:53,998:INFO:discord.client: Got a request to RESUME the websocket.
+2022-04-20 23:14:54,290:INFO:discord.gateway: Shard ID None has sent the RESUME payload.
+2022-04-20 23:14:54,421:INFO:discord.gateway: Shard ID None has successfully RESUMED session dcf54de8c53d84ce86b84eeb5b5aa8a3 under trace ["gateway-prd-main-t8ch",{"micros":11073,"calls":["discord-sessions-blue-prd-2-112",{"micros":21}]}].
+2022-04-21 01:49:03,155:INFO:discord.client: Got a request to RESUME the websocket.
+2022-04-21 01:49:03,434:INFO:discord.gateway: Shard ID None has sent the RESUME payload.
+2022-04-21 01:49:03,553:INFO:discord.gateway: Shard ID None has successfully RESUMED session dcf54de8c53d84ce86b84eeb5b5aa8a3 under trace ["gateway-prd-main-9czr",{"micros":648,"calls":["discord-sessions-blue-prd-2-112",{"micros":21}]}].
+2022-04-21 02:57:00,468:INFO:discord.client: Got a request to RESUME the websocket.
+2022-04-21 02:57:00,743:INFO:discord.gateway: Shard ID None has sent the RESUME payload.
+2022-04-21 02:57:00,860:INFO:discord.gateway: Shard ID None has successfully RESUMED session dcf54de8c53d84ce86b84eeb5b5aa8a3 under trace ["gateway-prd-main-0h48",{"micros":579,"calls":["discord-sessions-blue-prd-2-112",{"micros":17}]}].
+2022-04-21 04:24:48,275:INFO:discord.client: Got a request to RESUME the websocket.
+2022-04-21 04:24:48,540:INFO:discord.gateway: Shard ID None has sent the RESUME payload.
+2022-04-21 04:24:48,658:INFO:discord.gateway: Shard ID None has successfully RESUMED session dcf54de8c53d84ce86b84eeb5b5aa8a3 under trace ["gateway-prd-main-klrm",{"micros":669,"calls":["discord-sessions-blue-prd-2-112",{"micros":20}]}].
+2022-04-21 05:01:33,975:INFO:discord.client: Got a request to RESUME the websocket.
+2022-04-21 05:01:34,249:INFO:discord.gateway: Shard ID None has sent the RESUME payload.
+2022-04-21 05:01:34,367:INFO:discord.gateway: Shard ID None has successfully RESUMED session dcf54de8c53d84ce86b84eeb5b5aa8a3 under trace ["gateway-prd-main-b5fx",{"micros":563,"calls":["discord-sessions-blue-prd-2-112",{"micros":22}]}].
+2022-04-21 06:37:07,338:INFO:discord.client: Got a request to RESUME the websocket.
+2022-04-21 06:37:07,599:INFO:discord.gateway: Shard ID None has sent the RESUME payload.
+2022-04-21 06:37:07,718:INFO:discord.gateway: Shard ID None has successfully RESUMED session dcf54de8c53d84ce86b84eeb5b5aa8a3 under trace ["gateway-prd-main-ds1p",{"micros":2238,"calls":["discord-sessions-blue-prd-2-112",{"micros":20}]}].
+2022-04-21 07:16:22,422:INFO:discord.client: Got a request to RESUME the websocket.
+2022-04-21 07:16:22,682:INFO:discord.gateway: Shard ID None has sent the RESUME payload.
+2022-04-21 07:16:22,799:INFO:discord.gateway: Shard ID None has successfully RESUMED session dcf54de8c53d84ce86b84eeb5b5aa8a3 under trace ["gateway-prd-main-f4qp",{"micros":1002,"calls":["discord-sessions-blue-prd-2-112",{"micros":20}]}].
+2022-04-21 08:36:39,649:INFO:discord.client: Got a request to RESUME the websocket.
+2022-04-21 08:36:39,926:INFO:discord.gateway: Shard ID None has sent the RESUME payload.
+2022-04-21 08:36:40,045:INFO:discord.gateway: Shard ID None has successfully RESUMED session dcf54de8c53d84ce86b84eeb5b5aa8a3 under trace ["gateway-prd-main-ss5t",{"micros":581,"calls":["discord-sessions-blue-prd-2-112",{"micros":16}]}].
+2022-04-21 09:53:10,609:INFO:discord.client: Got a request to RESUME the websocket.
+2022-04-21 09:53:10,893:INFO:discord.gateway: Shard ID None has sent the RESUME payload.
+2022-04-21 09:53:11,012:INFO:discord.gateway: Shard ID None has successfully RESUMED session dcf54de8c53d84ce86b84eeb5b5aa8a3 under trace ["gateway-prd-main-b4mb",{"micros":493,"calls":["discord-sessions-blue-prd-2-112",{"micros":18}]}].

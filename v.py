@@ -54,7 +54,7 @@ async def moin(
     embed.set_author(name="CaveMC Team", icon_url=bot.user.avatar.url)
     await ctx.respond(embed=embed)
     # await ctx.respond(bot.user.avatar.url)
-
+    
 @bot.command()
 async def ankündigung(
     ctx: ApplicationContext,
